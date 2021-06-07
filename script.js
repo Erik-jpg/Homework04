@@ -6,28 +6,35 @@ const answerButtonElement = document.getElementById("answer-buttons");
 
 const questionsArray = [
   {
-    question: "what do wise men say?",
+    question: "what is a data type used by JavaScript?",
     options: [
-      { text: "only fools rush in.", correct: true },
-      { text: "hell is a happy place.", correct: false },
+      { text: "Numbers", correct: false },
+      { text: "Arrays", correct: false },
+      { text: "Strings.", correct: false },
+      { text: "All of the above.", correct: true },
+      
+    ],
+    answer: 3,
+  },
+  {
+    question: "What is the proper way to show an Array?",
+    options: [
+      { text: "[ ]", correct: true },
+      { text: "{ }", correct: false },
+      { text:"( )", correct: false },
+      { text: "None at all", correct: false },
     ],
     answer: 0,
   },
   {
-    question: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah?",
+    question: "In a function, what goes inside the parenthesis, ( )?",
     options: [
-      { text: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah.", correct: true },
-      { text: "hell is a happy place.", correct: false },
+      { text: "A Number", correct: false },
+      { text: "The parameter", correct: true },
+      { text: "A phone number", correct: false},
+      { text: "My name", correct: false},
     ],
-    answer: 0,
-  },
-  {
-    question: "what do wise men say?",
-    options: [
-      { text: "only fools rush in.", correct: true },
-      { text: "hell is a happy place.", correct: false },
-    ],
-    answer: 0,
+    answer: 1,
   },
 ];
 
@@ -88,8 +95,9 @@ function selectAnswer(e) {
   setNextQuestion();
   }
 };
-function setStatusClass(element, correct){
-  clearStatusClass(element)
+function clearStatusClass(element) {
+  element.classList.remove('correct');
+  element.classList.remove('wrong');
 }
 
 // getAttribute
