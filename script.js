@@ -4,6 +4,14 @@ const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
 
+const x = setTimeout(function () {
+getTime(distance);
+const seconds = Math.floor ((distance % (1000 * 60)) / 1000);
+if (distance < 0) {
+  clearInterval (x);
+  document.getElementById("Timer").innerHTML = "Game Over.";
+}
+})
 const questionsArray = [
   {
     question: "what is a data type used by JavaScript?",
@@ -69,6 +77,7 @@ function showQuestion(questionsArray) {
 }
 
 function resetState() {
+  clearStatusClass(document.body)
   nextButton.classList.add("hide");
   while (answerButtonElement.firstChild) {
     answerButtonElement.removeChild(answerButtonElement.firstChild);
@@ -78,15 +87,18 @@ function resetState() {
 function selectAnswer(e) {
   console.log(e.target.getAttribute("data-correct"));
   if (e.target.getAttribute("data-correct")==='true') {
-    setStatusClass(document.body, correct)
+    setStatusClass(document.body, correct===true)
     Array.from(answerButtonElement.children).forEach(button => {
-      setStatusClass(button, button.dataset.correct)
+      setStatusClass(button, button.dataset.correct === true)
     })
-    e.target.classList.add('correct');
+    function setStatusClass(element, correct) {
+   if (correct) {
+      e.target.classList.add('correct');
   } else {
     
     e.target.classList.add('wrong');
-  }
+  }}
+};
   currentQuestionIndex ++;
   if (currentQuestionIndex === questionsArray.length) {
     // call endGame function here
@@ -95,6 +107,8 @@ function selectAnswer(e) {
   setNextQuestion();
   }
 };
+
+
 function clearStatusClass(element) {
   element.classList.remove('correct');
   element.classList.remove('wrong');
