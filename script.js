@@ -4,6 +4,8 @@ const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
 const answers = [];
+let correctAnswer = 0;
+
 
 // const x = setTimeout(function () {
 // getTime();
@@ -99,12 +101,12 @@ function resetState() {
 function selectAnswer(e) {
   console.log(e.target.getAttribute("data-correct"));
   if (e.target.getAttribute("data-correct")==='true') {
-    setStatusClass(document.body, correct===true)
+    setStatusClass(document.body, correct=== true)
     Array.from(answerButtonElement.children).forEach(button => {
       setStatusClass(button, button.dataset.correct === true)
     })
     function setStatusClass(element, correct) {
-   if (correct) {
+   if (correct === true) {
       e.target.classList.add('correct');
   } else {
     
