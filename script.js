@@ -3,15 +3,27 @@ const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
+const answers = [];
 
-const x = setTimeout(function () {
-getTime();
-const seconds = Math.floor ((distance % (1000 * 60)) / 1000);
-if (distance < 0) {
-  clearInterval (x);
-  document.getElementById("Timer").innerHTML = "Game Over.";
+// const x = setTimeout(function () {
+// getTime();
+// const seconds = Math.floor ((distance % (1000 * 60)) / 1000);
+// if (distance < 0) {
+//   clearInterval (x);
+//   document.getElementById("Timer").innerHTML = "Game Over.";
+// }
+// })
+
+function timer(){
+  var sec = 30;
+  var timer = setInterval(function(){
+      document.getElementById('countdown').innerHTML='21:'-sec;
+      sec--;
+      if (sec < 0) {
+          clearInterval(timer);
+      }
+  }, 1000);
 }
-})
 const questionsArray = [
   {
     question: "what is a data type used by JavaScript?",
@@ -50,7 +62,7 @@ let shuffledQuestions, currentQuestionIndex;
 startButton.addEventListener("click", startGame);
 
 function startGame() {
-  console.log("started");
+  // console.log("started");
   startButton.classList.add("hide");
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
@@ -114,5 +126,13 @@ function clearStatusClass(element) {
   element.classList.remove('wrong');
 }
 
+answers.push(
+  `<label>
+  <input type="radio" name="question${questionArray}" value="${letter}" >
+  ${letter} :
+  ${currentQuestionIndex.answers[letter]}
+  </label>`
+);
+
 // getAttribute
-// console.log(questionsArray);
+ console.log(Timer.current);
