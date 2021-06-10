@@ -5,7 +5,7 @@ const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
 
 const x = setTimeout(function () {
-getTime(distance);
+getTime();
 const seconds = Math.floor ((distance % (1000 * 60)) / 1000);
 if (distance < 0) {
   clearInterval (x);
