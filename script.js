@@ -5,7 +5,7 @@ const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
 const answers = [];
 let correctAnswer = 0;
-
+var sec = 30;
 
 // const x = setTimeout(function () {
 // getTime();
@@ -17,9 +17,8 @@ let correctAnswer = 0;
 // })
 
 function timer(){
-  var sec = 30;
   var timer = setInterval(function(){
-      document.getElementById('countdown').innerHTML='21:'-sec;
+      document.getElementById('Countdown').textContent = 'Time left: ' +sec;
       sec--;
       if (sec < 0) {
           clearInterval(timer);
@@ -69,6 +68,7 @@ function startGame() {
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
+  timer();
   setNextQuestion();
 }
 function setNextQuestion() {
@@ -101,16 +101,16 @@ function resetState() {
 function selectAnswer(e) {
   console.log(e.target.getAttribute("data-correct"));
   if (e.target.getAttribute("data-correct")==='true') {
-    setStatusClass(document.body, correct=== true)
+    setStatusClass(document.body, true)
     Array.from(answerButtonElement.children).forEach(button => {
       setStatusClass(button, button.dataset.correct === true)
     })
     function setStatusClass(element, correct) {
    if (correct === true) {
-      e.target.classList.add('correct');
+      element.classList.add('correct');
   } else {
     
-    e.target.classList.add('wrong');
+    element.classList.add('wrong');
   }}
 };
   currentQuestionIndex ++;
@@ -128,13 +128,20 @@ function clearStatusClass(element) {
   element.classList.remove('wrong');
 }
 
-answers.push(
-  `<label>
-  <input type="radio" name="question${questionArray}" value="${letter}" >
-  ${letter} :
-  ${currentQuestionIndex.answers[letter]}
-  </label>`
-);
+if (true) {
+  answers.push(+1);
+}else {
+  timer -1000;
+}
+
+
+// answers.push(
+//   `<label>
+//   <input type="radio" name="question${questionsArray}" value="${letter}" >
+//   ${letter} :
+//   ${currentQuestionIndex.answers[letter]}
+//   </label>`
+// );
 
 // getAttribute
- console.log(Timer.current);
+ console.log(correctAnswer);

@@ -24,11 +24,11 @@ body {
 }
 
 
-body.correct {
+.correct {
     --hue: var(--hue-correct);
 }
 
-body.wrong {
+.wrong {
     --hue: var(--hue-wrong);
 }
 
