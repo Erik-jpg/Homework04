@@ -7,24 +7,24 @@ const answers = [];
 let correctAnswer = 0;
 var sec = 30;
 
-// const x = setTimeout(function () {
-// getTime();
-// const seconds = Math.floor ((distance % (1000 * 60)) / 1000);
-// if (distance < 0) {
-//   clearInterval (x);
-//   document.getElementById("Timer").innerHTML = "Game Over.";
-// }
-// })
 
+//timer
 function timer(){
-  var timer = setInterval(function(){
+  let timer = setInterval(function(){
       document.getElementById('Countdown').textContent = 'Time left: ' +sec;
       sec--;
       if (sec < 0) {
           clearInterval(timer);
+          alert('Game Over')
       }
   }, 1000);
 }
+document.getElementById('wrong').addEventListener('click', function(){
+  sec-= 5;
+  document.getElementById('Countdown').textContent = 'Time left: ' +sec;
+})
+
+//questions
 const questionsArray = [
   {
     question: "what is a data type used by JavaScript?",
@@ -34,8 +34,7 @@ const questionsArray = [
       { text: "Strings.", correct: false },
       { text: "All of the above.", correct: true },
       
-    ],
-    answer: 3,
+    ]
   },
   {
     question: "What is the proper way to show an Array?",
@@ -44,8 +43,7 @@ const questionsArray = [
       { text: "{ }", correct: false },
       { text:"( )", correct: false },
       { text: "None at all", correct: false },
-    ],
-    answer: 0,
+    ]
   },
   {
     question: "In a function, what goes inside the parenthesis, ( )?",
@@ -54,16 +52,24 @@ const questionsArray = [
       { text: "The parameter", correct: true },
       { text: "A phone number", correct: false},
       { text: "My name", correct: false},
-    ],
-    answer: 1,
+    ]
   },
+  { 
+    question: "For an eventListener to be added to an object, what needs to be put in the parenthesis, .addEventListener(  ,  )?",
+    options: [
+      { text: "a phone number, address", correct: false},
+      { text: "a latitude, longitude", correct: false},
+      { text: "an event, instructions about what to do for the event", correct: true},
+      {text: "up up down down left right left right a b then press select, then which level you'd like to play", correct: false},
+    ]
+  }
 ];
-
+//randomizing the questions
 let shuffledQuestions, currentQuestionIndex;
 startButton.addEventListener("click", startGame);
 
+//starting the game
 function startGame() {
-  // console.log("started");
   startButton.classList.add("hide");
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
@@ -81,7 +87,7 @@ function showQuestion(questionsArray) {
   questionsArray.options.forEach((answer) => {
     const button = document.createElement("button");
     button.innerText = answer.text;
-    button.classList.add("Answer-button");
+    button.classList.add("answer-buttons");
 
     button.dataset.correct = answer.correct;
 
@@ -115,7 +121,7 @@ function selectAnswer(e) {
 };
   currentQuestionIndex ++;
   if (currentQuestionIndex === questionsArray.length) {
-    // call endGame function here
+    gameOver();
     console.log("gameOver")
   }else{
   setNextQuestion();
@@ -134,14 +140,13 @@ if (true) {
   timer -1000;
 }
 
+function gameOver() {
+  clearStatusClass(document.body)
+  nextButton.classList.add("hide");
+}
 
-// answers.push(
-//   `<label>
-//   <input type="radio" name="question${questionsArray}" value="${letter}" >
-//   ${letter} :
-//   ${currentQuestionIndex.answers[letter]}
-//   </label>`
-// );
-
-// getAttribute
- console.log(correctAnswer);
+function timeOver() {
+if (sec === 0) {
+  stopTimer
+}
+}

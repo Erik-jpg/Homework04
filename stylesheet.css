@@ -46,6 +46,7 @@ body {
     grid-template-columns: repeat(2, auto);
     gap: 10px;
     margin: 20px 0;
+    --hue: var(--hue-neutral), 85%, 20%;
 }
 
 .btn {
@@ -96,4 +97,8 @@ body {
     box-shadow: 0 0 10px 2px;
     border-radius: 10px;
     padding: 5px 10px;
+}
+
+.answer-buttons {
+    background-color: purple;	 
 }
