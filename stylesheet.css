@@ -24,11 +24,11 @@ body {
 }
 
 
-.correct {
+body.correct {
     --hue: var(--hue-correct);
 }
 
-.wrong {
+body.wrong {
     --hue: var(--hue-wrong);
 }
 
@@ -100,5 +100,5 @@ body {
 }
 
 .answer-buttons {
-    background-color: purple;	 
+    background-color: hsl(var(--hue) 270, 100%, 100%);	 
 }

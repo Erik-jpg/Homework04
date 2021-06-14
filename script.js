@@ -19,48 +19,49 @@ function timer(){
       }
   }, 1000);
 }
-document.getElementById('answer-buttons').addEventListener('click', function(){
-  sec-= 5;
+document.getElementById('answer-buttons').addEventListener('click', function(e){
+  if (false) {sec-= 5;
   document.getElementById('Countdown').textContent = 'Time left: ' +sec;
-})
+}});
+
 
 //questions
 const questionsArray = [
   {
     question: "what is a data type used by JavaScript?",
     options: [
-      { text: "Numbers", correct: false },
-      { text: "Arrays", correct: false },
-      { text: "Strings.", correct: false },
-      { text: "All of the above.", correct: true },
+      { text: "Numbers", answer: false },
+      { text: "Arrays", answer: false },
+      { text: "Strings.", answer: false },
+      { text: "All of the above.", answer: true },
       
     ]
   },
   {
     question: "What is the proper way to show an Array?",
     options: [
-      { text: "[ ]", correct: true },
-      { text: "{ }", correct: false },
-      { text:"( )", correct: false },
-      { text: "None at all", correct: false },
+      { text: "[ ]", answer: true },
+      { text: "{ }", answer: false },
+      { text:"( )", answer: false },
+      { text: "None at all", answer: false },
     ]
   },
   {
     question: "In a function, what goes inside the parenthesis, ( )?",
     options: [
-      { text: "A Number", correct: false },
-      { text: "The parameter", correct: true },
-      { text: "A phone number", correct: false},
-      { text: "My name", correct: false},
+      { text: "A Number", answer: false },
+      { text: "The parameter", answer: true },
+      { text: "A phone number", answer: false},
+      { text: "My name", answer: false},
     ]
   },
   { 
     question: "For an eventListener to be added to an object, what needs to be put in the parenthesis, .addEventListener(  ,  )?",
     options: [
-      { text: "a phone number, address", correct: false},
-      { text: "a latitude, longitude", correct: false},
-      { text: "an event, instructions about what to do for the event", correct: true},
-      {text: "up up down down left right left right a b then press select, then which level you'd like to play", correct: false},
+      { text: "a phone number, address", answer: false},
+      { text: "a latitude, longitude", answer: false},
+      { text: "an event, instructions about what to do for the event", answer: true},
+      {text: "up up down down left right left right a b then press select, then which level you'd like to play", answer: false},
     ]
   }
 ];
@@ -77,25 +78,29 @@ function startGame() {
   timer();
   setNextQuestion();
 }
+//hiding the scoreboard and form for initials
+function endGame() {
+  document.getElementById('leader-board').addEventListener(startGame, leader-board.classList.add('hide'));
+  document.getElementById('placeholder').addEventListener(startGame, leader-board.classList.add('hide'));
+}
+// prompting the next question
 function setNextQuestion() {
   resetState();
   showQuestion(shuffledQuestions[currentQuestionIndex]);
 }
-
+//creating the buttons for answers
 function showQuestion(questionsArray) {
   questionElement.innerText = questionsArray.question;
   questionsArray.options.forEach((answer) => {
     const button = document.createElement("button");
     button.innerText = answer.text;
     button.classList.add("answer-buttons");
-
-    button.dataset.correct = answer.correct;
-
+    button.dataset.answer = answer.correct;
     button.onclick = selectAnswer;
     answerButtonElement.appendChild(button);
   });
 }
-
+// clearing the previous question and setting the next
 function resetState() {
   clearStatusClass(document.body)
   nextButton.classList.add("hide");
@@ -103,50 +108,56 @@ function resetState() {
     answerButtonElement.removeChild(answerButtonElement.firstChild);
   }
 }
-
+// determining if the selected answer is correct
 function selectAnswer(e) {
-  console.log(e.target.getAttribute("data-correct"));
-  if (e.target.getAttribute("data-correct")==='true') {
+  console.log(e.target.getAttribute("data-answer"));
+  if (e.target.getAttribute("data-answer")==='true') {
     setStatusClass(document.body, true)
     Array.from(answerButtonElement.children).forEach(button => {
-      setStatusClass(button, button.dataset.correct === true)
+      setStatusClass(button, button.dataset.answer === true)
     })
-    function setStatusClass(element, correct) {
-   if (correct === true) {
-      element.classList.add('correct');
+
+    //changing the background color to show if the answer is correct or wrong
+    function setStatusClass(element, answer) {
+   if (answer === true) {
+      element.classList.add('body.correct');
   } else {
     
-    element.classList.add('wrong');
+    element.classList.add('body.wrong');
   }}
 };
+//declaring end of the game
   currentQuestionIndex ++;
   if (currentQuestionIndex === questionsArray.length) {
     gameOver();
-    console.log("gameOver")
+    // console.log("gameOver")
   }else{
   setNextQuestion();
   }
 };
 
-
+// clearing the background color of correct or wrong 
 function clearStatusClass(element) {
   element.classList.remove('correct');
   element.classList.remove('wrong');
 }
-
+// score keeping
 if (true) {
   answers.push(+1);
 }else {
   timer -1000;
 }
-
+// hiding the game over screen
 function gameOver() {
   clearStatusClass(document.body)
   nextButton.classList.add("hide");
 }
-
+// ending the game due to out of time
 function timeOver() {
 if (sec === 0) {
   stopTimer
 }
 }
+// revealing the leader-board and placeholder form
+document.getElementById('placeholder').placeholder = 'Please enter your initials here';
+document.getElementById('placeholder').addEventListener('alert', placeholder.classList.remove('hide'));
