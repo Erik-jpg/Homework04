@@ -19,7 +19,7 @@ function timer(){
       }
   }, 1000);
 }
-document.getElementById('wrong').addEventListener('click', function(){
+document.getElementById('answer-buttons').addEventListener('click', function(){
   sec-= 5;
   document.getElementById('Countdown').textContent = 'Time left: ' +sec;
 })
