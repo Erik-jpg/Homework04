@@ -3,6 +3,8 @@ const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
+const leaderBoard = document.getElementById("leader");
+const placeholder = document.getElementById("placeholder");
 const answers = [];
 let correctAnswer = 0;
 var sec = 30;
@@ -10,11 +12,11 @@ var sec = 30;
 
 //timer
 function timer(){
-  let timer = setInterval(function(){
+  let gameClockId = setInterval(function(){
       document.getElementById('Countdown').textContent = 'Time left: ' +sec;
       sec--;
       if (sec < 0) {
-          clearInterval(timer);
+          clearInterval(gameClockId);
           alert('Game Over')
       }
   }, 1000);
@@ -79,9 +81,13 @@ function startGame() {
   setNextQuestion();
 }
 //hiding the scoreboard and form for initials
-function endGame() {
-  document.getElementById('leader-board').addEventListener(startGame, leader-board.classList.add('hide'));
-  document.getElementById('placeholder').addEventListener(startGame, leader-board.classList.add('hide'));
+function endGame() { 
+  //hide questions and answers 
+  // display endGame screen 
+  
+  // leader-board').addEventListener(startGame, leader-board.classList.remove('hide'));
+  // document.getElementById('placeholder').addEventListener(startGame, leader-board.classList.remove('hide'));
+  // clearInterval(timer);
 }
 // prompting the next question
 function setNextQuestion() {
@@ -127,11 +133,14 @@ function selectAnswer(e) {
   }}
 };
 //declaring end of the game
-  currentQuestionIndex ++;
+  currentQuestionIndex ++; 
+ 
   if (currentQuestionIndex === questionsArray.length) {
+    console.log('gameOver');
     gameOver();
-    // console.log("gameOver")
+   
   }else{
+    console.log("current: ", currentQuestionIndex);
   setNextQuestion();
   }
 };
@@ -151,6 +160,7 @@ if (true) {
 function gameOver() {
   clearStatusClass(document.body)
   nextButton.classList.add("hide");
+  endGame();
 }
 // ending the game due to out of time
 function timeOver() {
