@@ -5,6 +5,7 @@ const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
 const leaderBoard = document.getElementById("leader");
 const placeholder = document.getElementById("placeholder");
+const endOfGame = document.getElementsByClassName('endOfGame')
 const answers = [];
 let correctAnswer = 0;
 var sec = 30;
@@ -36,7 +37,7 @@ const questionsArray = [
       { text: "Arrays", answer: false },
       { text: "Strings.", answer: false },
       { text: "All of the above.", answer: true },
-      
+      {answer: "All of the above"}, 
     ]
   },
   {
@@ -70,10 +71,11 @@ const questionsArray = [
 //randomizing the questions
 let shuffledQuestions, currentQuestionIndex;
 startButton.addEventListener("click", startGame);
-
+// document.getElementsByClassName(endOdGame).addEventListener("click", startGame);
 //starting the game
 function startGame() {
   startButton.classList.add("hide");
+  // endOfGame.classList.add("hide");
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
@@ -81,14 +83,13 @@ function startGame() {
   setNextQuestion();
 }
 //hiding the scoreboard and form for initials
-function endGame() { 
-  //hide questions and answers 
-  // display endGame screen 
-  
-  // leader-board').addEventListener(startGame, leader-board.classList.remove('hide'));
-  // document.getElementById('placeholder').addEventListener(startGame, leader-board.classList.remove('hide'));
-  // clearInterval(timer);
-}
+// function endGame() { 
+//   questionsArray.classList.add("hide");
+//   leaderBoard.classList.remove("hide");
+//   placeholder.classList.remove("hide");
+//   clearInterval(timer);
+// }
+
 // prompting the next question
 function setNextQuestion() {
   resetState();

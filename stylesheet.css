@@ -102,3 +102,7 @@ body.wrong {
 .answer-buttons {
     background-color: hsl(var(--hue) 270, 100%, 100%);	 
 }
+
+.endOfGame {
+    background-color: blue;
+}
