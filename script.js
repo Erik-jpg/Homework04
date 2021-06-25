@@ -1,17 +1,19 @@
+document.addEventListener('DOMContentLoaded', function(){});
 const startButton = document.getElementById("start-btn");
 const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
-const leaderBoard = document.getElementById("leaderBoard");
-const placeholder = document.getElementById("placeholder");
-const endOfGame = document.getElementsByClassName("endOfGame");
+// const leaderBoard = document.getElementById("leaderBoard");
+const record = document.getElementById("record");
+// const endOfGame = document.getElementsByClassName("endOfGame");
 const container = document.querySelector(".container");
-
+const endOfGame = document.querySelector("#record", "#leaderBoard");
 let gameClockId;
 const correctAnswer = [];
 let score = 0;
 var sec = 30;
+
 
 //timer
 function timer() {
@@ -28,48 +30,84 @@ document
   .getElementById("answer-buttons")
   .addEventListener("click", function (e) {
     if (false) {
-      sec -= 5;
       document.getElementById("Countdown").textContent = "Time left: " + sec;
       sec--;
+      sec -= 5;
+      
     }
   });
 
 //questions
-const questionsArray = [
-  {
+const questionsArray = [{
     question: "what is a data type used by JavaScript?",
-    options: [
-      { text: "Numbers", answer: false },
-      { text: "Arrays", answer: false },
-      { text: "Strings.", answer: false },
-      { text: "All of the above.", answer: true },
-      { answer: "All of the above" },
+    options: [{
+        text: "Numbers",
+        answer: false
+      },
+      {
+        text: "Arrays",
+        answer: false
+      },
+      {
+        text: "Strings.",
+        answer: false
+      },
+      {
+        text: "All of the above.",
+        answer: true
+      },
     ],
   },
   {
     question: "What is the proper way to show an Array?",
-    options: [
-      { text: "[ ]", answer: true },
-      { text: "{ }", answer: false },
-      { text: "( )", answer: false },
-      { text: "None at all", answer: false },
+    options: [{
+        text: "[ ]",
+        answer: true
+      },
+      {
+        text: "{ }",
+        answer: false
+      },
+      {
+        text: "( )",
+        answer: false
+      },
+      {
+        text: "None at all",
+        answer: false
+      },
     ],
   },
   {
     question: "In a function, what goes inside the parenthesis, ( )?",
-    options: [
-      { text: "A Number", answer: false },
-      { text: "The parameter", answer: true },
-      { text: "A phone number", answer: false },
-      { text: "My name", answer: false },
+    options: [{
+        text: "A Number",
+        answer: false
+      },
+      {
+        text: "The parameter",
+        answer: true
+      },
+      {
+        text: "A phone number",
+        answer: false
+      },
+      {
+        text: "My name",
+        answer: false
+      },
     ],
   },
   {
-    question:
-      "For an eventListener to be added to an object, what needs to be put in the parenthesis, .addEventListener(  ,  )?",
-    options: [
-      { text: "a phone number, address", answer: false },
-      { text: "a latitude, longitude", answer: false },
+    question: "For an eventListener to be added to an object, what needs to be put in the parenthesis, .addEventListener(  ,  )?",
+    options: [{
+        text: "a phone number, address",
+        answer: false
+      },
+      {
+        text: "a latitude, longitude",
+        answer: false
+      },
       {
         text: "an event, instructions about what to do for the event",
         answer: true,
@@ -92,15 +130,20 @@ function startGame() {
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
+  document.querySelector(".endOfGame").classList.add("hide");
+  
+
   timer();
   setNextQuestion();
 }
 //hiding the scoreboard and form for initials
 function endGame() {
   container.classList.add("hide");
-  leaderBoard.classList.remove("hide");
-  placeholder.classList.remove("hide");
+  endOfGame.classList.remove("hide");
+  // endOfGame.classList.remove("hide");
   clearInterval(gameClockId);
+  
+
 }
 
 // prompting the next question
@@ -146,6 +189,7 @@ function selectAnswer(e) {
       }
     }
   }
+  
 
   //declaring end of the game
   currentQuestionIndex++;
@@ -153,6 +197,7 @@ function selectAnswer(e) {
   if (currentQuestionIndex === questionsArray.length) {
     console.log("gameOver");
     gameOver();
+    
   } else {
     console.log("current: ", currentQuestionIndex);
     setNextQuestion();
@@ -173,29 +218,34 @@ if (true) {
 // hiding the game over screen
 function gameOver() {
   clearStatusClass(document.body);
-  
   endGame();
+  
 }
 // ending the game due to out of time
 function timeOver() {
   if (!sec === 0) {
     stopTimer;
-  return  score = 0;
+    gameOver();
+    return score = 0;
   }
 }
-function handleScore (score){
+
+function handleScore(score) {
   score += time
   return score;
 }
-document.getElementById("leaderBoard").innerText = 'Your score is: ' +score;
 
 // revealing the leader-board and placeholder form
-document.getElementById("placeholder").placeholder =
-  "Please enter your initials here";
-document
-  .getElementById("placeholder")
-  .addEventListener(
-    "alert",
-    document.getElementById("placeholder").classList.remove("hide")
-  );
-console.log(score);
+function thisIsTheEnd(){
+  document.querySelector(".endOfGame").classList.remove('hide')
+}
+console.log(endOfGame);
+document.querySelector(".endOfGame").addEventListener(
+  "gameOver", thisIsTheEnd());
+
+  
+// document.getElementById("leaderBoard").innerText = 'Your score is: ' + score;
+// document.getElementById("record").value = "";
+  
+
+
