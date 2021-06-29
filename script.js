@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function(){});
+document.addEventListener("DOMContentLoaded", function () {});
 const startButton = document.getElementById("start-btn");
 const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
@@ -13,7 +13,6 @@ let gameClockId;
 const correctAnswer = [];
 let score = 0;
 var sec = 30;
-
 
 //timer
 function timer() {
@@ -33,80 +32,85 @@ document
       document.getElementById("Countdown").textContent = "Time left: " + sec;
       sec--;
       sec -= 5;
-      
     }
   });
 
 //questions
-const questionsArray = [{
+const questionsArray = [
+  {
     question: "what is a data type used by JavaScript?",
-    options: [{
+    options: [
+      {
         text: "Numbers",
-        answer: false
+        answer: false,
       },
       {
         text: "Arrays",
-        answer: false
+        answer: false,
       },
       {
         text: "Strings.",
-        answer: false
+        answer: false,
       },
       {
         text: "All of the above.",
-        answer: true
+        answer: true,
       },
     ],
   },
   {
     question: "What is the proper way to show an Array?",
-    options: [{
+    options: [
+      {
         text: "[ ]",
-        answer: true
+        answer: true,
       },
       {
         text: "{ }",
-        answer: false
+        answer: false,
       },
       {
         text: "( )",
-        answer: false
+        answer: false,
       },
       {
         text: "None at all",
-        answer: false
+        answer: false,
       },
     ],
   },
   {
     question: "In a function, what goes inside the parenthesis, ( )?",
-    options: [{
+    options: [
+      {
         text: "A Number",
-        answer: false
+        answer: false,
       },
       {
         text: "The parameter",
-        answer: true
+        answer: true,
       },
       {
         text: "A phone number",
-        answer: false
+        answer: false,
       },
       {
         text: "My name",
-        answer: false
+        answer: false,
       },
     ],
   },
   {
-    question: "For an eventListener to be added to an object, what needs to be put in the parenthesis, .addEventListener(  ,  )?",
-    options: [{
+    question:
+      "For an eventListener to be added to an object, what needs to be put in the parenthesis, .addEventListener(  ,  )?",
+    options: [
+      {
         text: "a phone number, address",
-        answer: false
+        answer: false,
       },
       {
         text: "a latitude, longitude",
-        answer: false
+        answer: false,
       },
       {
         text: "an event, instructions about what to do for the event",
@@ -126,13 +130,10 @@ startButton.addEventListener("click", startGame);
 //starting the game
 function startGame() {
   startButton.classList.add("hide");
-  // leaderBoard.classList.add("hide");
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
   document.querySelector(".endOfGame").classList.add("hide");
-  
-
   timer();
   setNextQuestion();
 }
@@ -140,10 +141,7 @@ function startGame() {
 function endGame() {
   container.classList.add("hide");
   endOfGame.classList.remove("hide");
-  // endOfGame.classList.remove("hide");
   clearInterval(gameClockId);
-  
-
 }
 
 // prompting the next question
@@ -155,7 +153,7 @@ function setNextQuestion() {
 function showQuestion(questionsArray) {
   questionElement.innerText = questionsArray.question;
   questionsArray.options.forEach((answer) => {
-    const button = document.createElement("button");
+    const button = document.createElement("button");// why am I making a button?// to have an answer for each option?
     button.innerText = answer.text;
     button.classList.add("answer-buttons");
     button.dataset.answer = answer.answer;
@@ -189,7 +187,6 @@ function selectAnswer(e) {
       }
     }
   }
-  
 
   //declaring end of the game
   currentQuestionIndex++;
@@ -219,33 +216,18 @@ if (true) {
 function gameOver() {
   clearStatusClass(document.body);
   endGame();
-  
 }
 // ending the game due to out of time
 function timeOver() {
   if (!sec === 0) {
-    stopTimer;
+    handleScore();
     gameOver();
-    return score = 0;
+    return (score = 0);
   }
 }
+  function handleScore(score) {
+    score += time;
+    return score;
+  }
 
-function handleScore(score) {
-  score += time
-  return score;
-}
-
-// revealing the leader-board and placeholder form
-function thisIsTheEnd(){
-  document.querySelector(".endOfGame").classList.remove('hide')
-}
-console.log(endOfGame);
-document.querySelector(".endOfGame").addEventListener(
-  "gameOver", thisIsTheEnd());
-
-  
-// document.getElementById("leaderBoard").innerText = 'Your score is: ' + score;
-// document.getElementById("record").value = "";
-  
-
-
+  //body doesn't change color to match answers, .endOfGame doesn't remove hide class at gameOver.
