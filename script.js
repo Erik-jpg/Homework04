@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {});
 const startButton = document.getElementById("start-btn");
-const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
@@ -25,15 +24,6 @@ function timer() {
     }
   }, 1000);
 }
-document
-  .getElementById("answer-buttons")
-  .addEventListener("click", function (e) {
-    if (false) {
-      document.getElementById("Countdown").textContent = "Time left: " + sec;
-      sec--;
-      sec -= 5;
-    }
-  });
 
 //questions
 const questionsArray = [
@@ -153,7 +143,7 @@ function setNextQuestion() {
 function showQuestion(questionsArray) {
   questionElement.innerText = questionsArray.question;
   questionsArray.options.forEach((answer) => {
-    const button = document.createElement("button");// why am I making a button?// to have an answer for each option?
+    const button = document.createElement("button");
     button.innerText = answer.text;
     button.classList.add("answer-buttons");
     button.dataset.answer = answer.answer;
@@ -163,7 +153,6 @@ function showQuestion(questionsArray) {
 }
 // clearing the previous question and setting the next
 function resetState() {
-  clearStatusClass(document.body);
   // nextButton.classList.add("hide");
   while (answerButtonElement.firstChild) {
     answerButtonElement.removeChild(answerButtonElement.firstChild);
@@ -171,36 +160,49 @@ function resetState() {
 }
 // determining if the selected answer is correct
 function selectAnswer(e) {
-  console.log(e.target.getAttribute("data-answer"));
-  if (e.target.getAttribute("data-answer") === "true") {
-    setStatusClass(document.body, true);
-    Array.from(answerButtonElement.children).forEach((button) => {
-      setStatusClass(button, button.dataset.answer === true);
-    });
+  // console.log(e.target.dataset.answer);
+  const buttonElement = e.target;
+  const answer = buttonElement.dataset.answer;
 
-    //changing the background color to show if the answer is correct or wrong
-    function setStatusClass(element, answer) {
-      if ("data-answer" === true) {
-        element.classList.add("body.correct");
-      } else {
-        element.classList.add("body.wrong");
-      }
-    }
+  setStatusClass(document.body, answer);
+  // if else statement to subtract time.
+  console.log(typeof answer);
+  if (answer === 'false') {
+    console.log('the answer is wrong');
+    sec= sec-5;
+    document.getElementById("Countdown").textContent = "Time left: " + sec;
+    
+  } else {
+    
   }
-
-  //declaring end of the game
+  Array.from(answerButtonElement.children).forEach((button) => {
+    // console.log(button);
+    setStatusClass(button, button.dataset.answer);
+  });
+  //declaring end of the game. Still inside function.
   currentQuestionIndex++;
-
+  // console.log(currentQuestionIndex);
   if (currentQuestionIndex === questionsArray.length) {
     console.log("gameOver");
     gameOver();
-    
   } else {
-    console.log("current: ", currentQuestionIndex);
+    // console.log("current: ", currentQuestionIndex);
     setNextQuestion();
   }
 }
-
+//changing the background color to show if the answer is correct or wrong
+function setStatusClass(element, answer) {
+  // console.log(answer, element);
+  clearStatusClass(element);
+  
+  if (answer === 'true') {
+    element.classList.add("correct");
+    // console.log(element);
+  } else {
+    element.classList.add("wrong");
+  }
+}
+// setStatusClass(document.body, "true");
 // clearing the background color of correct or wrong
 function clearStatusClass(element) {
   element.classList.remove("correct");
@@ -210,7 +212,7 @@ function clearStatusClass(element) {
 if (true) {
   score++;
 } else {
-  timer -= 1000;
+  timer() -= 1000;
 }
 // hiding the game over screen
 function gameOver() {
@@ -225,9 +227,9 @@ function timeOver() {
     return (score = 0);
   }
 }
-  function handleScore(score) {
-    score += time;
-    return score;
-  }
+function handleScore(score) {
+  score += time;
+  return score;
+}
 
-  //body doesn't change color to match answers, .endOfGame doesn't remove hide class at gameOver.
+//body doesn't change color to match answers, .endOfGame doesn't remove hide class at gameOver.
