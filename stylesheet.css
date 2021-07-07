@@ -63,14 +63,11 @@ body.wrong {
     border-color: black;
 }
 
-.btn.correct {
-    --hue: var(--hue-correct);
-    color: black;
-}
-
-.btn.wrong {
-    --hue: var(--hue-wrong);
-    color: black;
+#endOfGame {
+    border-color: black;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px;
 }
 
 .start-btn {

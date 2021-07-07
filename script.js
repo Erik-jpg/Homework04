@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {});
 const startButton = document.getElementById("start-btn");
+const saveBtn = document.getElementById("saveBtn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
-// const leaderBoard = document.getElementById("leaderBoard");
+const leaderBoard = document.getElementById("leaderBoard");
 const record = document.getElementById("record");
-const endOfGame = document.querySelectorAll(".endOfGame");
+const endOfGame = document.querySelector("#endOfGame");
 const container = document.querySelector(".container");
-// const endOfGame = document.querySelector("#record", "#leaderBoard");
 let gameClockId;
 const correctAnswer = [];
 let score = 0;
@@ -117,13 +117,15 @@ const questionsArray = [
 //randomizing the questions
 let shuffledQuestions, currentQuestionIndex;
 startButton.addEventListener("click", startGame);
-document.querySelectorAll('endOdGame').addEventListener("click", function(e) {
-  e.document.querySelector(".endOfGame").classList.add("hide");
-});
+console.log(endOfGame);
 
 //starting the game
 function startGame() {
   startButton.classList.add("hide");
+  
+    endOfGame.classList.add("hide");
+    console.log(endOfGame);
+  
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
@@ -135,6 +137,7 @@ function startGame() {
 function endGame() {
   container.classList.add("hide");
   endOfGame.classList.remove("hide");
+  console.log(leaderBoard);
   clearInterval(gameClockId);
 }
 
@@ -221,7 +224,6 @@ if (true) {
 // hiding the game over screen
 function gameOver() {
   clearStatusClass(document.body);
-  endGame();
 }
 // ending the game due to out of time
 function timeOver() {
@@ -237,3 +239,6 @@ function handleScore(score) {
 }
 
 //body doesn't change color to match answers, .endOfGame doesn't remove hide class at gameOver.
+function handleSave(record) {5
+ 
+}
