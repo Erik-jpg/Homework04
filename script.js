@@ -122,14 +122,11 @@ console.log(endOfGame);
 //starting the game
 function startGame() {
   startButton.classList.add("hide");
-  
-    endOfGame.classList.add("hide");
-    console.log(endOfGame);
-  
+  endOfGame.classList.add("hide");
+  console.log(endOfGame);
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
-  
   timer();
   setNextQuestion();
 }
@@ -160,70 +157,56 @@ function showQuestion(questionsArray) {
 }
 // clearing the previous question and setting the next
 function resetState() {
-  // nextButton.classList.add("hide");
   while (answerButtonElement.firstChild) {
     answerButtonElement.removeChild(answerButtonElement.firstChild);
   }
 }
 // determining if the selected answer is correct
 function selectAnswer(e) {
-  // console.log(e.target.dataset.answer);
   const buttonElement = e.target;
   const answer = buttonElement.dataset.answer;
-
   setStatusClass(document.body, answer);
   // if else statement to subtract time.
   console.log(typeof answer);
-  if (answer === 'false') {
-    console.log('the answer is wrong');
-    sec= sec-5;
+  if (answer === "false") {
+    console.log("the answer is wrong");
+    sec = sec - 5;
     document.getElementById("Countdown").textContent = "Time left: " + sec;
-    
   } else {
-    
   }
   Array.from(answerButtonElement.children).forEach((button) => {
-    // console.log(button);
     setStatusClass(button, button.dataset.answer);
   });
   //declaring end of the game. Still inside function.
   currentQuestionIndex++;
-  // console.log(currentQuestionIndex);
   if (currentQuestionIndex === questionsArray.length) {
     console.log("gameOver");
     gameOver();
   } else {
-    // console.log("current: ", currentQuestionIndex);
     setNextQuestion();
   }
 }
 //changing the background color to show if the answer is correct or wrong
 function setStatusClass(element, answer) {
-  // console.log(answer, element);
   clearStatusClass(element);
-  
-  if (answer === 'true') {
+  if (answer === "true") {
     element.classList.add("correct");
-    // console.log(element);
   } else {
     element.classList.add("wrong");
   }
 }
-// setStatusClass(document.body, "true");
+
 // clearing the background color of correct or wrong
 function clearStatusClass(element) {
   element.classList.remove("correct");
   element.classList.remove("wrong");
 }
-// score keeping
-if (true) {
-  score++;
-} else {
-  timer() -= 1000;
-}
+
 // hiding the game over screen
 function gameOver() {
   clearStatusClass(document.body);
+endGame();
+handleScore();
 }
 // ending the game due to out of time
 function timeOver() {
@@ -233,12 +216,13 @@ function timeOver() {
     return (score = 0);
   }
 }
+// score keeping
 function handleScore(score) {
-  score += time;
+  score += sec;
   return score;
 }
 
-//body doesn't change color to match answers, .endOfGame doesn't remove hide class at gameOver.
-function handleSave(record) {5
- 
+function handleSave(record) {
+  localStorage.setItem(record, leaderBoard);
 }
+
