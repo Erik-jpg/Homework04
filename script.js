@@ -181,6 +181,7 @@ function selectAnswer(e) {
   currentQuestionIndex++;
   if (currentQuestionIndex === questionsArray.length) {
     console.log("gameOver");
+    handleScore();
     gameOver();
   } else {
     setNextQuestion();
@@ -222,7 +223,7 @@ function handleScore(score) {
   return score;
 }
 
-function handleSave(record) {
-  localStorage.setItem(record, leaderBoard);
+function handleSave(record, score) {
+  localStorage.setItem(record, score);
 }
 
