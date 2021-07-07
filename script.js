@@ -5,9 +5,9 @@ const questionElement = document.getElementById("question");
 const answerButtonElement = document.getElementById("answer-buttons");
 // const leaderBoard = document.getElementById("leaderBoard");
 const record = document.getElementById("record");
-// const endOfGame = document.getElementsByClassName("endOfGame");
+const endOfGame = document.querySelectorAll(".endOfGame");
 const container = document.querySelector(".container");
-const endOfGame = document.querySelector("#record", "#leaderBoard");
+// const endOfGame = document.querySelector("#record", "#leaderBoard");
 let gameClockId;
 const correctAnswer = [];
 let score = 0;
@@ -113,17 +113,21 @@ const questionsArray = [
     ],
   },
 ];
+
 //randomizing the questions
 let shuffledQuestions, currentQuestionIndex;
 startButton.addEventListener("click", startGame);
-// document.getElementsByClassName(endOdGame).addEventListener("click", startGame);
+document.querySelectorAll('endOdGame').addEventListener("click", function(e) {
+  e.document.querySelector(".endOfGame").classList.add("hide");
+});
+
 //starting the game
 function startGame() {
   startButton.classList.add("hide");
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
-  document.querySelector(".endOfGame").classList.add("hide");
+  
   timer();
   setNextQuestion();
 }
