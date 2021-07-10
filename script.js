@@ -10,8 +10,9 @@ const endOfGame = document.querySelector("#endOfGame");
 const container = document.querySelector(".container");
 let gameClockId;
 const correctAnswer = [];
+let players = [];
 let score = 0;
-var sec = 30;
+let sec = 30;
 
 //timer
 function timer() {
@@ -117,13 +118,11 @@ const questionsArray = [
 //randomizing the questions
 let shuffledQuestions, currentQuestionIndex;
 startButton.addEventListener("click", startGame);
-console.log(endOfGame);
 
 //starting the game
 function startGame() {
   startButton.classList.add("hide");
   endOfGame.classList.add("hide");
-  console.log(endOfGame);
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
@@ -134,8 +133,9 @@ function startGame() {
 function endGame() {
   container.classList.add("hide");
   endOfGame.classList.remove("hide");
-  console.log(leaderBoard);
   clearInterval(gameClockId);
+  // handleSave();
+  // console.log(handleSave);
 }
 
 // prompting the next question
@@ -167,9 +167,7 @@ function selectAnswer(e) {
   const answer = buttonElement.dataset.answer;
   setStatusClass(document.body, answer);
   // if else statement to subtract time.
-  console.log(typeof answer);
   if (answer === "false") {
-    console.log("the answer is wrong");
     sec = sec - 5;
     document.getElementById("Countdown").textContent = "Time left: " + sec;
   } else {
@@ -180,8 +178,7 @@ function selectAnswer(e) {
   //declaring end of the game. Still inside function.
   currentQuestionIndex++;
   if (currentQuestionIndex === questionsArray.length) {
-    console.log("gameOver");
-    handleScore();
+    
     gameOver();
   } else {
     setNextQuestion();
@@ -213,17 +210,36 @@ handleScore();
 function timeOver() {
   if (!sec === 0) {
     handleScore();
+    // console.log(handleSave)
     gameOver();
     return (score = 0);
   }
 }
-// score keeping
-function handleScore(score) {
-  score += sec;
-  return score;
+
+const playersObject = {playersInitials:record, playersScore:score.value};
+
+function handleSave() {
+  const record = document.querySelector('#record').value; 
+  let savedRecord = JSON.parse(localStorage.getItem(playersObject)) || [];
+   savedRecord.push(playersObject)
+  console.log(playersObject);
+  console.log(savedRecord);
+  localStorage.setItem(playersObject, JSON.stringify(savedRecord));
+  displayRecord();
 }
 
-function handleSave(record, score) {
-  localStorage.setItem(record, score);
-}
+saveBtn.addEventListener('click', handleSave());
 
+function displayRecord() {
+  const retrievedRecord = JSON.parse(localStorage.getItem(playersObject)) || [];
+  document.querySelector("#leaderBoard").innerText ="";
+  console.log(displayRecord);
+for (let i = 0; i < retrievedRecord.length; i++) {
+  const element = retrievedRecord[i];
+  let li = document.createElement('li');
+  li.textContent = element.playersObject;
+  document.querySelector('#leaderBoard').append(li);
+  console.log(leaderBoard);
+}
+}
+// save player names and scores under empty array called players and then set that to local storage and then retrieve that
