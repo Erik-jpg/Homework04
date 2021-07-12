@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {});
+document.addEventListener("DOMContentLoaded", function (){});
 const startButton = document.getElementById("start-btn");
 const saveBtn = document.getElementById("saveBtn");
 const questionContainerElement = document.getElementById("question-container");
@@ -9,7 +9,6 @@ const record = document.getElementById("record");
 const endOfGame = document.querySelector("#endOfGame");
 const container = document.querySelector(".container");
 let gameClockId;
-const correctAnswer = [];
 let players = [];
 let score = 0;
 let sec = 30;
@@ -205,12 +204,14 @@ function gameOver() {
   clearStatusClass(document.body);
 endGame();
 handleScore();
+// preventDefault();
 }
 // ending the game due to out of time
 function timeOver() {
   if (!sec === 0) {
     handleScore();
-    // console.log(handleSave)
+    // preventDefault();
+    console.log(score);
     gameOver();
     return (score = 0);
   }
@@ -219,11 +220,9 @@ function timeOver() {
 const playersObject = {playersInitials:record, playersScore:score.value};
 
 function handleSave() {
-  const record = document.querySelector('#record').value; 
+  const record = document.querySelector('#record'); 
   let savedRecord = JSON.parse(localStorage.getItem(playersObject)) || [];
    savedRecord.push(playersObject)
-  console.log(playersObject);
-  console.log(savedRecord);
   localStorage.setItem(playersObject, JSON.stringify(savedRecord));
   displayRecord();
 }
@@ -233,13 +232,20 @@ saveBtn.addEventListener('click', handleSave());
 function displayRecord() {
   const retrievedRecord = JSON.parse(localStorage.getItem(playersObject)) || [];
   document.querySelector("#leaderBoard").innerText ="";
-  console.log(displayRecord);
 for (let i = 0; i < retrievedRecord.length; i++) {
   const element = retrievedRecord[i];
   let li = document.createElement('li');
   li.textContent = element.playersObject;
   document.querySelector('#leaderBoard').append(li);
-  console.log(leaderBoard);
 }
 }
-// save player names and scores under empty array called players and then set that to local storage and then retrieve that
+
+
+function handleScore() {
+  let score = sec;
+  score.innerText.querySelector(".leaderBoard");
+}
+
+// function preventDefault (event) {
+//   event.preventDefault;
+// }
