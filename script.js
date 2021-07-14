@@ -207,13 +207,13 @@ function clearStatusClass(element) {
 function gameOver() {
   clearStatusClass(document.body);
 endGame();
-handleScore();
+saveScore();
 // preventDefault();
 }
 // ending the game due to out of time
 function timeOver() {
   if (!sec === 0) {
-    handleScore();
+    saveScore();
     // preventDefault();
     console.log(score);
     gameOver();
@@ -221,24 +221,26 @@ function timeOver() {
   }
 }
 
-const playersObject = {playersInitials:record, playersScore:score.value};
+// const playersObject = {playersInitials:record, playersScore:score.value};
 
-function handleSave(event) {
-  const playersInitials = document.querySelector('#record').value;
-  const playersScore = document.getElementsByClassName("#leaderBoard").value; 
-   const players = {
-     playersInitials: "",
-     playersScore: "",
+saveScore = e => {
+  console.log("Score Saved!");
+  // e.preventDefault;
+
+  const playersScore = {
+    score: score,
+    name: playersInitials
+  };
+  savedRecord.push(score);
    }
-   preventDefault(event);
-}
-function preventDefault(event) {
-event.preventDefault();
-}
-saveBtn.addEventListener('click', handleSave());
+
+
+saveBtn.addEventListener('click', saveScore());
 
 function displayRecord() {
   const savedRecord = JSON.parse(localStorage.getItem(players)) || [];
+  
+  
   document.querySelector("#leaderBoard").innerText =players;
 for (let i = 0; i < savedRecord.length; i++) {
   const element = savedRecord[i];
@@ -255,3 +257,6 @@ function handleScore() {
 }
 
 displayRecord();
+
+const playersInitials = document.querySelector('#record').value;
+  const playersScore = document.getElementsByClassName("#leaderBoard").value; 
