@@ -13,6 +13,10 @@ let players = [];
 let score = 0;
 let sec = 30;
 
+function preventDefault (event) {
+  event.preventDefault;
+}
+
 //timer
 function timer() {
   gameClockId = setInterval(function () {
@@ -219,23 +223,27 @@ function timeOver() {
 
 const playersObject = {playersInitials:record, playersScore:score.value};
 
-function handleSave() {
-  const record = document.querySelector('#record'); 
-  let savedRecord = JSON.parse(localStorage.getItem(playersObject)) || [];
-   savedRecord.push(playersObject)
-  localStorage.setItem(playersObject, JSON.stringify(savedRecord));
-  displayRecord();
+function handleSave(event) {
+  const playersInitials = document.querySelector('#record').value;
+  const playersScore = document.getElementsByClassName("#leaderBoard").value; 
+   const players = {
+     playersInitials: "",
+     playersScore: "",
+   }
+   preventDefault(event);
 }
-
+function preventDefault(event) {
+event.preventDefault();
+}
 saveBtn.addEventListener('click', handleSave());
 
 function displayRecord() {
-  const retrievedRecord = JSON.parse(localStorage.getItem(playersObject)) || [];
-  document.querySelector("#leaderBoard").innerText ="";
-for (let i = 0; i < retrievedRecord.length; i++) {
-  const element = retrievedRecord[i];
+  const savedRecord = JSON.parse(localStorage.getItem(players)) || [];
+  document.querySelector("#leaderBoard").innerText =players;
+for (let i = 0; i < savedRecord.length; i++) {
+  const element = savedRecord[i];
   let li = document.createElement('li');
-  li.textContent = element.playersObject;
+  li.textContent = element.players;
   document.querySelector('#leaderBoard').append(li);
 }
 }
@@ -243,9 +251,7 @@ for (let i = 0; i < retrievedRecord.length; i++) {
 
 function handleScore() {
   let score = sec;
-  score.innerText.querySelector(".leaderBoard");
+  score.innerText = document.querySelector("#leaderBoard");
 }
 
-// function preventDefault (event) {
-//   event.preventDefault;
-// }
+displayRecord();
