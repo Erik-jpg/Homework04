@@ -8,8 +8,10 @@ const leaderBoard = document.getElementById("leaderBoard");
 const record = document.getElementById("record");
 const endOfGame = document.querySelector("#endOfGame");
 const container = document.querySelector(".container");
+const playersInitials = document.querySelector('#record').value;
+const playersScore = document.getElementsByClassName("#leaderBoard").value; 
 let gameClockId;
-let players = [];
+let players = {};
 let score = 0;
 let sec = 30;
 
@@ -221,26 +223,26 @@ function timeOver() {
   }
 }
 
-// const playersObject = {playersInitials:record, playersScore:score.value};
-
-saveScore = e => {
+ function saveScore () {
+   //tried to put score into an object to fix the saveScore.push is not a function error
+  let saveScore = {
+    score: sec
+  }
+  saveScore.push(sec);
   console.log("Score Saved!");
   // e.preventDefault;
-
-  const playersScore = {
+}
+console.log(saveScore);
+  const savedRecord = {
     score: score,
     name: playersInitials
   };
-  savedRecord.push(score);
-   }
 
-
-saveBtn.addEventListener('click', saveScore());
+  //deleting the () from saveScore resulted in object object???? 
+saveBtn.addEventListener('click', saveScore);
 
 function displayRecord() {
   const savedRecord = JSON.parse(localStorage.getItem(players)) || [];
-  
-  
   document.querySelector("#leaderBoard").innerText =players;
 for (let i = 0; i < savedRecord.length; i++) {
   const element = savedRecord[i];
@@ -250,13 +252,9 @@ for (let i = 0; i < savedRecord.length; i++) {
 }
 }
 
-
 function handleScore() {
   let score = sec;
   score.innerText = document.querySelector("#leaderBoard");
 }
 
 displayRecord();
-
-const playersInitials = document.querySelector('#record').value;
-  const playersScore = document.getElementsByClassName("#leaderBoard").value; 
