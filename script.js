@@ -10,9 +10,9 @@ const endOfGame = document.querySelector("#endOfGame");
 const container = document.querySelector(".container");
 const playersInitials = document.querySelector('#record').value;
 const playersScore = document.getElementsByClassName("#leaderBoard").value; 
-let gameClockId;
+const gameClockId = 1200;
 let players = {};
-let score = 0;
+let score = [];
 let sec = 30;
 
 function preventDefault (event) {
@@ -223,23 +223,20 @@ function timeOver() {
   }
 }
 
- function saveScore () {
-   //tried to put score into an object to fix the saveScore.push is not a function error
-  let saveScore = {
-    score: sec
-  }
-  saveScore.push(sec);
+ function saveScore (gameClockId) {
+  gameClockId.innerHTML = playersScore;
   console.log("Score Saved!");
   // e.preventDefault;
-}
-console.log(saveScore);
-  const savedRecord = {
-    score: score,
-    name: playersInitials
-  };
 
+  // const savedRecord = {
+  //   score: playersScore,
+  //   name: playersInitials
+  // }
+ };
   //deleting the () from saveScore resulted in object object???? 
-saveBtn.addEventListener('click', saveScore);
+saveBtn.addEventListener('click', saveScore())
+console.log(object);
+;
 
 function displayRecord() {
   const savedRecord = JSON.parse(localStorage.getItem(players)) || [];
@@ -251,10 +248,23 @@ for (let i = 0; i < savedRecord.length; i++) {
   document.querySelector('#leaderBoard').append(li);
 }
 }
+function handleSave () {
+  const savedRecord = JSON.stringify(localStorage.getItem(endOfGame)) || [];
+  document.querySelector("#leaderBoard").innerText =players;
+  
+for (let i = 0; i < savedRecord.length; i++) {
+  const element = savedRecord[i];
+  let li = document.createElement('li');
+  li.textContent = element.players;
+  document.querySelector('#leaderBoard').append(li);
+  
+}
+}
 
 function handleScore() {
   let score = sec;
   score.innerText = document.querySelector("#leaderBoard");
 }
-
+handleSave();
 displayRecord();
+handleScore();
