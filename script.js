@@ -9,9 +9,9 @@ const record = document.getElementById("record");
 const endOfGame = document.querySelector("#endOfGame");
 const container = document.querySelector(".container");
 const playersInitials = document.querySelector('#record').value;
-const playersScore = document.getElementsByClassName("#leaderBoard").value; 
+const playersScore = document.querySelector("#leaderBoard"); 
 const gameClockId = 1200;
-let players = {};
+// let players = {};
 let score = [];
 let sec = 30;
 
@@ -131,7 +131,7 @@ function startGame() {
   shuffledQuestions = questionsArray.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;
   questionContainerElement.classList.remove("hide");
-  timer();
+  timer
   setNextQuestion();
 }
 //hiding the scoreboard and form for initials
@@ -216,31 +216,30 @@ saveScore();
 function timeOver() {
   if (!sec === 0) {
     saveScore();
-    // preventDefault();
     console.log(score);
     gameOver();
     return (score = 0);
+    
   }
 }
 
- function saveScore (gameClockId) {
-  gameClockId.innerHTML = playersScore;
+ function saveScore () {
+   playersScore.innerHTML = sec;
   console.log("Score Saved!");
-  // e.preventDefault;
 
-  // const savedRecord = {
-  //   score: playersScore,
-  //   name: playersInitials
-  // }
+  const savedRecord = {
+    score: playersScore,
+    name: playersInitials
+  }
  };
-  //deleting the () from saveScore resulted in object object???? 
-saveBtn.addEventListener('click', saveScore())
-console.log(object);
-;
+
+saveBtn.addEventListener('click', saveScore)
+
+
 
 function displayRecord() {
-  const savedRecord = JSON.parse(localStorage.getItem(players)) || [];
-  document.querySelector("#leaderBoard").innerText =players;
+  const savedRecord = JSON.parse(localStorage.getItem(playersInitials)) || [];
+  document.querySelector("#leaderBoard").innerText = playersInitials;
 for (let i = 0; i < savedRecord.length; i++) {
   const element = savedRecord[i];
   let li = document.createElement('li');
@@ -250,7 +249,7 @@ for (let i = 0; i < savedRecord.length; i++) {
 }
 function handleSave () {
   const savedRecord = JSON.stringify(localStorage.getItem(endOfGame)) || [];
-  document.querySelector("#leaderBoard").innerText =players;
+  // document.querySelector("#leaderBoard").innerText =players;
   
 for (let i = 0; i < savedRecord.length; i++) {
   const element = savedRecord[i];
